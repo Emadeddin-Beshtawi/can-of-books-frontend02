@@ -29,6 +29,9 @@ class AddBookButton extends Component {
         <Button variant="success" size="lg" placeholder="put id to deleat" onClick={() => { this.props.delet(this.x) }} >
           delete Book
         </Button>
+        <Button variant="success" size="lg" placeholder="put id to deleat" onClick={() => { this.props.update() }} >
+          update Book
+        </Button>
       </div>
     );
   }
