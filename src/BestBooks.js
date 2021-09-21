@@ -13,10 +13,14 @@ class BestBooks extends React.Component {
       books: [],
       showBookFormModal: false,
       showForm: false,
+      title: "",
+      description: "",
+      status: "",
+      email: "",
+      id: "",
     };
   }
   /* TODO(Done): Make a GET request to your API to fetch books for the logged in user  */
-
 
   componentDidMount() {
     this.getBooks();
@@ -33,54 +37,93 @@ class BestBooks extends React.Component {
   };
   onButtonClick = () => {
     this.setState({
-      flag: true
-    })
-  }
+      flag: true,
+    });
+  };
   closeModal = () => {
     this.setState({
-      flag: false
-    })
-  }
+      flag: false,
+    });
+  };
   updateData = () => {
     this.getBooks();
-
-  }
+  };
   deleatOne = (item) => {
-
-    axios.delete(`${process.env.REACT_APP_BACKEND_URL}/del-book/${item}`)
+    axios.delete(`${process.env.REACT_APP_BACKEND_URL}/del-book/${item}`);
     this.getBooks();
-  }
+  };
 
   update = () => {
     this.setState({
-      showForm: true
-    })
-  }
+      showForm: true,
+    });
+  };
+
+  handlerUpdateForm = (e) => {
+    console.log(e);
+    this.setState({
+      id: e.target.id.value,
+      title: e.target.title.value,
+      description: e.target.description.value,
+      email: e.target.email.value,
+      status: e.target.status.checked,
+    });
+
+    let config = {
+      method: "PUT",
+      baseURL: process.env.REACT_APP_BACKEND_URL,
+      url: `/update-book/${this.state.id}`,
+      data: {
+        title: this.state.title,
+        description: this.state.description,
+        status: this.state.status,
+        email: this.state.email,
+        id: this.state.id,
+      },
+    };
+    axios(config).then((res) => {
+      this.setState({
+        Book: res.data,
+      });
+    });
+  };
+
   render() {
     /* TODO(Done): render user's books in a Carousel */
     //  this.getBooks();
 
     return (
-
-      <div  >
-        <BookFormModal show={this.state.flag} onHide={this.closeModal} updateData={this.updateData} />
+      <div>
+        <BookFormModal
+          show={this.state.flag}
+          onHide={this.closeModal}
+          updateData={this.updateData}
+        />
         <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
         {this.state.books.length > 0 ? (
           <Book books={this.state.books} />
         ) : (
           <h3>No Books Found </h3>
         )}
-        <Row style={{
-          display: "flex",
-          justifyContent: "space-between",
-        }}
-        > {
-            this.state.showForm ?
-              (<FormUpdate />) : (<p></p>)
-          }</Row>
-        <AddBookButton update={this.update} onClick={this.onButtonClick} delet={this.deleatOne} />
-
-      </div >
+        <Row
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          {" "}
+          {this.state.showForm ? (
+            <FormUpdate handlerUpdateForm={this.handlerUpdateForm} />
+          ) : (
+            <p></p>
+          )}
+        </Row>
+        <AddBookButton
+          update={this.update}
+          onClick={this.onButtonClick}
+          delet={this.deleatOne}
+        />
+      </div>
     );
   }
 }
