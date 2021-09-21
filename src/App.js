@@ -8,8 +8,8 @@ import {
   Route
 } from "react-router-dom";
 import BestBooks from './BestBooks';
-import Profile from './Profile';
-import Login from './Login';
+// import Profile from './Profile';
+// import Login from './Login';
 class App extends React.Component {
   constructor(props) {
     super(props);

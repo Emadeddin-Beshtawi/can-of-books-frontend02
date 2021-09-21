@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 class AddBookButton extends Component {
@@ -29,6 +28,9 @@ class AddBookButton extends Component {
         <input variant="success" size="lg" onChange={(e) => { this.chang(e) }} />
         <Button variant="success" size="lg" placeholder="put id to deleat" onClick={() => { this.props.delet(this.x) }} >
           delete Book
+        </Button>
+        <Button variant="success" size="lg" placeholder="put id to deleat" onClick={() => { this.props.update() }} >
+          update Book
         </Button>
       </div>
     );

@@ -3,6 +3,8 @@ import Book from "./Book";
 import axios from "axios";
 import BookFormModal from "./BookFormModal";
 import AddBookButton from "./AddBookButton";
+import FormUpdate from "./FormUpdate";
+import { Row } from "react-bootstrap";
 const BOOK_KEY_PORT = process.env.REACT_APP_BACKEND_URL;
 class BestBooks extends React.Component {
   constructor(props) {
@@ -10,13 +12,15 @@ class BestBooks extends React.Component {
     this.state = {
       books: [],
       showBookFormModal: false,
-      flage: false,
-      delId: ''
+      showForm: false,
     };
   }
   /* TODO(Done): Make a GET request to your API to fetch books for the logged in user  */
 
 
+  componentDidMount() {
+    this.getBooks();
+  }
 
   getBooks = async () => {
     const bookServer = `${BOOK_KEY_PORT}/books`;
@@ -47,9 +51,14 @@ class BestBooks extends React.Component {
     this.getBooks();
   }
 
+  update = () => {
+    this.setState({
+      showForm: true
+    })
+  }
   render() {
     /* TODO(Done): render user's books in a Carousel */
-    this.getBooks();
+    //  this.getBooks();
 
     return (
 
@@ -61,9 +70,17 @@ class BestBooks extends React.Component {
         ) : (
           <h3>No Books Found </h3>
         )}
-        <AddBookButton onClick={this.onButtonClick} delet={this.deleatOne} updateData={this.updateData} />
+        <Row style={{
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+        > {
+            this.state.showForm ?
+              (<FormUpdate />) : (<p></p>)
+          }</Row>
+        <AddBookButton update={this.update} onClick={this.onButtonClick} delet={this.deleatOne} />
 
-      </div>
+      </div >
     );
   }
 }
