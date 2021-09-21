@@ -50,7 +50,7 @@ class BestBooks extends React.Component {
   };
   deleatOne = (item) => {
     axios.delete(`${process.env.REACT_APP_BACKEND_URL}/del-book/${item}`);
-    this.getBooks();
+    window.location.reload(false);
   };
 
   update = () => {
@@ -78,20 +78,19 @@ class BestBooks extends React.Component {
         description: this.state.description,
         status: this.state.status,
         email: this.state.email,
-        id: this.state.id,
       },
     };
     axios(config).then((res) => {
       this.setState({
         Book: res.data,
+        showForm: false
       });
     });
+    window.location.reload(false);
+
   };
 
   render() {
-    /* TODO(Done): render user's books in a Carousel */
-    //  this.getBooks();
-
     return (
       <div>
         <BookFormModal
