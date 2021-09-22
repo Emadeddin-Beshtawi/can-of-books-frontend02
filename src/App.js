@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Profiler } from 'react';
 import Header from './Header';
 import Footer from './Footer';
+import profile from './Profile'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   BrowserRouter as Router,
@@ -37,6 +38,9 @@ class App extends React.Component {
               <BestBooks />
               {/* TODO(Done): if the user is logged in, render the `BestBooks` component, if they are not, render the `Login` component */}
               {/* {this.state.user ? <BestBooks /> : <Login onLoginSubmit={this.loginHandler} handleFormInput={this.formInputHandler} />} */}
+            </Route>
+            <Route exact path="/profile">
+              <profile />
             </Route>
             {/* TODO(Done): add a route with a path of '/profile' that renders a `Profile` component */}
             {/* <Route path="/profile">
