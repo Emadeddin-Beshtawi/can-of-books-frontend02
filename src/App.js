@@ -7,7 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import BestBooks from "./BestBooks";
 import Profile from "./Profile";
-// import Login from './Login';
+import Login from './Login';
 import { withAuth0 } from "@auth0/auth0-react";
 
 class App extends React.Component {
@@ -19,7 +19,7 @@ class App extends React.Component {
   }
   loginHandler = (user) => {
     this.setState({
-      user,
+      user: user,
     });
   };
   logoutHandler = () => {
@@ -28,7 +28,7 @@ class App extends React.Component {
     });
   };
   render() {
-    const { isAuthenticated} = this.props.auth0;
+    const { isAuthenticated } = this.props.auth0;
     // console.log(this.props);
     return (
       <>
@@ -38,10 +38,10 @@ class App extends React.Component {
             <Route exact path="/">
               {/* <BestBooks /> */}
               {/* TODO(Done): if the user is logged in, render the `BestBooks` component, if they are not, render the `Login` component */}
-              {/* {this.state.user ? <BestBooks /> : <Login onLoginSubmit={this.loginHandler} handleFormInput={this.formInputHandler} />} */}
+              {isAuthenticated ? <BestBooks /> : <Login onLoginSubmit={this.loginHandler} handleFormInput={this.formInputHandler} />}
 
-              {isAuthenticated && <BestBooks />}
-              
+              {/* {isAuthenticated && <BestBooks />} */}
+
 
               {/* {this.state.user  && <BestBooks />} */}
             </Route>

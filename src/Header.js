@@ -15,7 +15,7 @@ import LoginButton from "./LoginButton"; class Header extends React.Component {
 
         <NavItem>
           {!isAuthenticated ? <Link to="/" className="nav-link">Home</Link> :
-            <Link to="/profile">Profile</Link>}
+            <Link className='link' to="/profile">Profile</Link>}
         </NavItem>
         <LoginButton />
         <LogoutButton />

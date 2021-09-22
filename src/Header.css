@@ -4,3 +4,8 @@ a {
 a:hover {
   color: darkgrey;
 }
+
+.link{
+text-decoration: none;
+margin: 20px 0px;
+}
