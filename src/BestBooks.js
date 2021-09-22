@@ -59,7 +59,7 @@ class BestBooks extends React.Component {
     });
   };
 
-  handlerUpdateForm = (e) => {
+  handlerUpdateForm = async (e) => {
     console.log(e);
     this.setState({
       id: e.target.id.value,
@@ -80,14 +80,12 @@ class BestBooks extends React.Component {
         email: this.state.email,
       },
     };
-    axios(config).then((res) => {
+    await axios(config).then((res) => {
       this.setState({
         Book: res.data,
         showForm: false
       });
-    });
-    window.location.reload(false);
-
+    }).catch(e => console.log(e));
   };
 
   render() {
